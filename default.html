@@ -1,0 +1,104 @@
+﻿<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="ie=edge">
+    <title>test</title>  
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <style>
+        .my-page {
+            color: rgba(255, 255, 255, 0);
+        }
+    </style>
+	
+
+</head>
+<body>
+
+    <canvas id="canvas" style="position: fixed; left: 0; top: 0; width: 100vw; height: 100vh;"></canvas>
+
+
+    <div class="container my-page">
+        
+						<div class="col-sm-12">
+							
+							<audio id="defaultAudioSource" src="music/city_of_stars.mp3" style="display: none;"
+								   autoplay="autoplay"></audio>
+							<div style="opacity: 0.8; width: 100%; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">
+								<label id="labelForChooseMusicFileToPlay"
+									   for="chooseMusicFileToPlay"
+									   class="btn btn-primary"
+									   style="max-width: 100%;"></label>
+								<input id="chooseMusicFileToPlay"
+									   type="file"
+									   style="display: none;"
+									   accept="audio/*"
+									   onchange="onChooseMusicFileToPlay(this.files)">
+							</div>
+						</div>
+					</div>
+
+
+
+<!--
+<script src="js/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="js/popper.min.js"
+        integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+        crossorigin="anonymous"></script>
+<script src="js/bootstrap.min.js"
+        integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+        crossorigin="anonymous"></script>
+-->
+
+    <script src="js/showdown.min.js"></script>
+	
+	
+    <script src="js/music-player.js"></script>
+	
+	
+    <script src="js/hsla.js"></script>
+	
+	
+    <script src="js/galaxy-visualizer.js"></script>
+	
+<!--
+-->
+    <script>
+        $(document).ready(function () {
+            const converter = new showdown.Converter();
+            const input = document.getElementById('article-markdown');
+            const output = document.getElementById('article-content');
+            output.innerHTML = converter.makeHtml(input.innerText);
+        });
+    </script>
+    <script>
+        const player = new MusicPlayer();
+        player.loadFromMediaElement('defaultAudioSource');
+
+        const visualizer = new GalaxyVisualizer(player);
+        visualizer.setupVisualizer('canvas', 256);
+        visualizer.visualizerCanvas.height = window.innerHeight;
+        visualizer.visualizerCanvas.width = window.innerWidth;
+        visualizer.setupVisualizer('canvas', 256);
+
+        function onChooseMusicFileToPlay(files) {
+            player.loadFromFile(files[0]);
+            $('#labelForChooseMusicFileToPlay').text(files[0].name);
+        }
+    </script>
+    <link rel="stylesheet"
+          href="css/default.min.css">
+    <script src="js/highlight.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('pre code').each(function (i, block) {
+                hljs.highlightBlock(block);
+            });
+        });
+    </script>
+
+</body>
+</html>
